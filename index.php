@@ -20,40 +20,41 @@ function val(array $p, string $key, string $default): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EkoMigas Pro – Input Parameter</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root {
-            --bg:#07101e;--bg2:#0b1929;--card:#0f1f33;--sidebar:#091524;
-            --border:#162840;--amber:#f59e0b;--amber2:#fbbf24;
-            --amber-bg:rgba(245,158,11,.08);--cyan:#22d3ee;--text:#dde5f0;
-            --muted:#5a7290;--dim:#8aa4bf;--success:#10b981;--danger:#ef4444;
-            --in-bg:#061120;--in-bdr:#1c3352;
-            --sidebar-w:240px;
+        :root{
+            --bg:#0C0C0C;--bg2:#141414;--card:#1A1A1A;--sidebar:#191919;
+            --border:#272727;--accent:#938A87;--accent-h:#B0A8A5;
+            --accent-bg:rgba(147,138,135,.08);--accent-bdr:rgba(147,138,135,.22);
+            --amber:var(--accent);--amber2:var(--accent-h);--amber-bg:var(--accent-bg);
+            --text:#EDEAE6;--text2:#B8B3AE;--muted:#605E5E;--dim:#7A7572;
+            --success:#6E9B7A;--danger:#9B6E6E;--cyan:#22d3ee;
+            --in-bg:#101110;--in-bdr:#2c2c2c;--sidebar-w:240px;
         }
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh}
-        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,158,11,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
+        body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+        body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.045) 1px,transparent 1px);background-size:26px 26px;pointer-events:none;z-index:0}
 
         /* ── Navbar ── */
-        .top-nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:300}
+        .top-nav{position:fixed;top:0;left:0;right:0;height:62px;background:rgba(12,12,12,.82);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:300;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:.25s background}
         .nav-left{display:flex;align-items:center;gap:14px}
         .btn-toggle{width:38px;height:38px;background:transparent;border:1px solid var(--border);border-radius:9px;color:var(--dim);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.18s all;flex-shrink:0}
-        .btn-toggle:hover{background:var(--amber-bg);border-color:rgba(245,158,11,.3);color:var(--amber)}
+        .btn-toggle:hover{background:var(--accent-bg);border-color:var(--accent-bdr);color:var(--accent)}
         .btn-toggle i{font-size:17px}
         .nav-brand{display:flex;align-items:center;gap:10px}
-        .nav-logo{width:36px;height:36px;background:var(--amber);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#000;box-shadow:0 0 18px rgba(245,158,11,.35);flex-shrink:0}
-        .nav-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--text)}
-        .nav-sub{font-size:10.5px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
-        .nav-tag{background:var(--amber-bg);border:1px solid rgba(245,158,11,.3);color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 11px;border-radius:20px}
+        .nav-logo{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;color:var(--bg);box-shadow:0 0 18px rgba(147,138,135,.35);flex-shrink:0}
+        .nav-title{font-family:'DM Sans',sans-serif;font-weight:700;font-size:18px;color:var(--text)}
+        .nav-sub{font-size:10.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+        .nav-tag{background:var(--amber-bg);border:1px solid var(--accent-bdr);color:var(--accent);font-family:'DM Mono',monospace;font-size:11px;padding:4px 11px;border-radius:20px}
 
         /* ── Sidebar ── */
         .sidebar{position:fixed;left:0;top:62px;bottom:0;width:var(--sidebar-w);background:var(--sidebar);border-right:1px solid var(--border);padding:1.4rem .9rem;overflow-y:auto;z-index:200;transition:transform .25s ease}
         .sidebar.collapsed{transform:translateX(-100%)}
         .sb-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding:.3rem .6rem;margin-top:.5rem;display:block}
         .sb-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;color:var(--dim);font-size:13.5px;text-decoration:none;transition:.18s all;margin-bottom:2px}
-        .sb-item:hover{background:rgba(245,158,11,.06);color:var(--text)}
-        .sb-item.active{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(245,158,11,.22)}
+        .sb-item:hover{background:rgba(147,138,135,.08);color:var(--text)}
+        .sb-item.active{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-bdr)}
         .sb-item i{font-size:15px;flex-shrink:0}
         .sb-hr{border:none;border-top:1px solid var(--border);margin:.75rem 0}
 
@@ -67,7 +68,7 @@ function val(array $p, string $key, string $default): string {
         .sidebar-overlay.show{display:block}
 
         /* ── Edit banner ── */
-        .edit-banner{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.3);border-radius:11px;padding:13px 18px;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:12px}
+        .edit-banner{background:rgba(147,138,135,.07);border:1px solid rgba(147,138,135,.3);border-radius:11px;padding:13px 18px;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:12px}
         .eb-left{display:flex;align-items:center;gap:12px}
         .eb-icon{font-size:19px;color:var(--amber)}
         .eb-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:15px;color:var(--amber)}
@@ -80,7 +81,7 @@ function val(array $p, string $key, string $default): string {
         .page-hdr p{color:var(--muted);font-size:13px}
 
         /* ── Nama proyek ── */
-        .proj-name-field{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);border-radius:11px;padding:13px 17px;margin-bottom:1.3rem;display:flex;align-items:center;gap:13px}
+        .proj-name-field{background:rgba(147,138,135,.05);border:1px solid rgba(147,138,135,.2);border-radius:11px;padding:13px 17px;margin-bottom:1.3rem;display:flex;align-items:center;gap:13px}
         .pnf-icon{font-size:17px;color:var(--amber);flex-shrink:0}
         .pnf-group{flex:1}
         .pnf-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:.35rem}
@@ -88,12 +89,12 @@ function val(array $p, string $key, string $default): string {
         /* ── Section cards ── */
         .scard{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:1.5rem 1.65rem;margin-bottom:1.3rem;position:relative;overflow:hidden}
         .scard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--amber) 0%,transparent 65%)}
-        .sc-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px}
+        .sc-title{font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px}
 
         /* ── Form ── */
         label{display:block;font-size:11px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem}
-        input[type=number],input[type=text],select{width:100%;background:var(--in-bg);border:1px solid var(--in-bdr);color:var(--text);border-radius:8px;padding:9px 12px;font-family:'IBM Plex Mono',monospace;font-size:13px;transition:.18s all;appearance:none;-webkit-appearance:none}
-        input:focus,select:focus{outline:none;border-color:var(--amber);box-shadow:0 0 0 3px rgba(245,158,11,.12)}
+        input[type=number],input[type=text],select{width:100%;background:var(--in-bg);border:1px solid var(--in-bdr);color:var(--text);border-radius:8px;padding:9px 12px;font-family:'DM Mono',monospace;font-size:13px;transition:.18s all;appearance:none;-webkit-appearance:none}
+        input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(147,138,135,.12)}
         input::placeholder{color:var(--muted)}
         select option{background:var(--card);color:var(--text)}
         .fg{margin-bottom:1.1rem}
@@ -105,7 +106,7 @@ function val(array $p, string $key, string $default): string {
         /* ── Referensi formula card ── */
         .ref-card{background:var(--card);border:1px solid var(--border);border-radius:13px;margin-bottom:1.3rem;overflow:hidden}
         .ref-header{padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;transition:.18s background}
-        .ref-header:hover{background:rgba(245,158,11,.04)}
+        .ref-header:hover{background:rgba(147,138,135,.04)}
         .ref-header-left{display:flex;align-items:center;gap:9px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13.5px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
         .ref-header-left i{font-size:15px;color:var(--amber)}
         .ref-chevron{color:var(--muted);transition:transform .25s ease;font-size:14px}
@@ -118,8 +119,8 @@ function val(array $p, string $key, string $default): string {
         .ref-body p span{color:var(--cyan)}
 
         /* ── Submit ── */
-        .btn-calc{width:100%;padding:14px;background:var(--amber);border:none;border-radius:11px;color:#000;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s all}
-        .btn-calc:hover{background:var(--amber2);transform:translateY(-1px);box-shadow:0 8px 26px rgba(245,158,11,.3)}
+        .btn-calc{width:100%;padding:14px;background:var(--accent);border:none;border-radius:11px;color:var(--bg);font-family:'DM Sans',sans-serif;font-weight:700;font-size:16px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s all}
+        .btn-calc:hover{background:var(--accent-h);transform:translateY(-1px);box-shadow:0 8px 26px rgba(147,138,135,.3)}
 
         ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
     </style>
@@ -183,7 +184,7 @@ function val(array $p, string $key, string $default): string {
                 <input type="text" name="project_name" class style="background:var(--in-bg);border:1px solid var(--in-bdr);color:var(--text);border-radius:8px;padding:9px 12px;font-family:'IBM Plex Mono',monospace;font-size:13px;width:100%;transition:.18s all"
                        placeholder="Contoh: Lapangan Blok A – Skenario Base"
                        value="<?= htmlspecialchars($loadedProject['name'] ?? '') ?>"
-                       onfocus="this.style.borderColor='var(--amber)';this.style.boxShadow='0 0 0 3px rgba(245,158,11,.12)'"
+                       onfocus="this.style.borderColor='var(--amber)';this.style.boxShadow='0 0 0 3px rgba(147,138,135,.12)'"
                        onblur="this.style.borderColor='var(--in-bdr)';this.style.boxShadow='none'">
             </div>
         </div>

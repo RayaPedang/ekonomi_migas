@@ -28,32 +28,32 @@ $toast    = $_GET['toast'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semua Proyek – EkoMigas Pro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root{--bg:#07101e;--bg2:#0b1929;--card:#0f1f33;--sidebar:#091524;--border:#162840;--amber:#f59e0b;--amber2:#fbbf24;--amber-bg:rgba(245,158,11,.08);--cyan:#22d3ee;--text:#dde5f0;--muted:#5a7290;--dim:#8aa4bf;--success:#10b981;--danger:#ef4444;--sidebar-w:240px}
+        :root{--bg:#0C0C0C;--bg2:#141414;--card:#1A1A1A;--sidebar:#191919;--border:#272727;--accent:#938A87;--accent-h:#B0A8A5;--accent-bg:rgba(147,138,135,.08);--accent-bdr:rgba(147,138,135,.22);--amber:var(--accent);--amber2:var(--accent-h);--amber-bg:var(--accent-bg);--text:#EDEAE6;--text2:#B8B3AE;--muted:#605E5E;--dim:#7A7572;--success:#6E9B7A;--danger:#9B6E6E;--cyan:#22d3ee;--sidebar-w:240px}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh}
-        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,158,11,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0}
+        body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+        body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.045) 1px,transparent 1px);background-size:26px 26px;pointer-events:none;z-index:0}
 
-        .top-nav{position:fixed;top:0;left:0;right:0;height:62px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:300}
+        .top-nav{position:fixed;top:0;left:0;right:0;height:62px;background:rgba(12,12,12,.82);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:300;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:.25s background}
         .nav-left{display:flex;align-items:center;gap:14px}
         .btn-toggle{width:38px;height:38px;background:transparent;border:1px solid var(--border);border-radius:9px;color:var(--dim);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.18s all;flex-shrink:0}
-        .btn-toggle:hover{background:var(--amber-bg);border-color:rgba(245,158,11,.3);color:var(--amber)}
+        .btn-toggle:hover{background:var(--accent-bg);border-color:var(--accent-bdr);color:var(--accent)}
         .btn-toggle i{font-size:17px}
         .nav-brand{display:flex;align-items:center;gap:10px}
-        .nav-logo{width:36px;height:36px;background:var(--amber);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;color:#000;box-shadow:0 0 18px rgba(245,158,11,.35);flex-shrink:0}
-        .nav-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:18px;color:var(--text)}
-        .nav-sub{font-size:10.5px;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
-        .btn-new{background:var(--amber);border:none;color:#000;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;padding:8px 18px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.18s all}
-        .btn-new:hover{background:var(--amber2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(245,158,11,.3);color:#000}
+        .nav-logo{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;color:var(--bg);box-shadow:0 0 18px rgba(147,138,135,.35);flex-shrink:0}
+        .nav-title{font-family:'DM Sans',sans-serif;font-weight:700;font-size:18px;color:var(--text)}
+        .nav-sub{font-size:10.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+        .btn-new{background:var(--accent);border:none;color:var(--bg);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;padding:8px 18px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:6px;transition:.18s all}
+        .btn-new:hover{background:var(--accent-h);transform:translateY(-1px);box-shadow:0 6px 18px rgba(147,138,135,.3);color:var(--bg)}
 
         .sidebar{position:fixed;left:0;top:62px;bottom:0;width:var(--sidebar-w);background:var(--sidebar);border-right:1px solid var(--border);padding:1.4rem .9rem;overflow-y:auto;z-index:200;transition:transform .25s ease}
         .sidebar.collapsed{transform:translateX(-100%)}
         .sb-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding:.3rem .6rem;margin-top:.5rem;display:block}
         .sb-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;color:var(--dim);font-size:13.5px;text-decoration:none;transition:.18s all;margin-bottom:2px}
-        .sb-item:hover{background:rgba(245,158,11,.06);color:var(--text)}
-        .sb-item.active{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(245,158,11,.22)}
+        .sb-item:hover{background:rgba(147,138,135,.08);color:var(--text)}
+        .sb-item.active{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-bdr)}
         .sb-item i{font-size:15px;flex-shrink:0}
         .sb-hr{border:none;border-top:1px solid var(--border);margin:.75rem 0}
 
@@ -93,11 +93,11 @@ $toast    = $_GET['toast'] ?? '';
         .pc-params{display:grid;grid-template-columns:1fr 1fr;gap:5px 9px;margin-bottom:.85rem}
         .pp-item{background:rgba(7,16,30,.5);border:1px solid var(--border);border-radius:7px;padding:5px 8px}
         .pp-label{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-        .pp-value{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber)}
+        .pp-value{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)}
         .pc-date{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-bottom:.8rem}
         .pc-actions{border-top:1px solid var(--border);padding:.8rem 1.3rem;display:flex;gap:.55rem}
-        .btn-edit{flex:1;padding:8px;background:var(--amber-bg);border:1px solid rgba(245,158,11,.3);color:var(--amber);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:.18s all}
-        .btn-edit:hover{background:var(--amber);color:#000}
+        .btn-edit{flex:1;padding:8px;background:var(--amber-bg);border:1px solid var(--accent-bdr);color:var(--accent);font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:.18s all}
+        .btn-edit:hover{background:var(--accent);color:var(--bg)}
         .btn-calc-again{flex:1;padding:8px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);color:var(--cyan);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;border-radius:8px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:5px;transition:.18s all}
         .btn-calc-again:hover{background:var(--cyan);color:#000}
         .btn-del{padding:8px 12px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:var(--danger);font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:5px;transition:.18s all}
