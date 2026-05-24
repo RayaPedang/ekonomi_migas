@@ -1,0 +1,22 @@
+{
+    "id": "proj_f51c37bf2259",
+    "name": "Tes 1",
+    "params": {
+        "jangka_waktu": "20",
+        "capital": "13000",
+        "non_capital": "8000",
+        "prod_thn_1": "175",
+        "laju_kenaikan": "11.3",
+        "tahun_puncak": "3",
+        "decline": "3",
+        "harga_minyak": "32",
+        "opex_base": "180",
+        "opex_eskalasi": "2.5",
+        "tahun_mulai_eskalasi": "4",
+        "pajak": "51",
+        "discount_rate": "10",
+        "metode_depresiasi": "declining_balance"
+    },
+    "created_at": "2026-05-24 05:52:41",
+    "updated_at": "2026-05-24 06:24:07"
+}
