@@ -199,17 +199,17 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
 <body>
 
 <!-- ═══ NAVBAR ══════════════════════════════════════ -->
-<nav class="nav">
-    <div class="nav-left">
-        <a href="home.php" class="nav-logo">
-            <div class="logo-box">FM</div>
-            <span class="logo-wordmark">EkoMigas <strong>Pro</strong></span>
-        </a>
-        <div class="nav-links">
-            <a href="home.php">Home</a>
-            <a href="index.php">Hitung</a>
-            <a href="project.php">Proyek</a>
+<nav class="nav" id="topNav">
+    <a class="nav-brand" href="home.php">
+        <div class="nav-logo">FM</div>
+        <div>
+            <div class="nav-wordmark">EkoMigas Pro</div>
+            <div class="nav-sub">Petroleum Economics</div>
         </div>
+    </a>
+    <div class="nav-links">
+        <a href="home.php"    class="nav-a">Beranda</a>
+        <a href="project.php" class="nav-a">Proyek</a>
     </div>
     <div class="nav-right">
         <a href="<?= $projectId ? 'index.php?load='.urlencode($projectId) : 'index.php' ?>" class="btn btn-ghost btn-sm">
@@ -403,5 +403,13 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
 </div>
 </div>
 </div>
+
+<script>
+const nav = document.getElementById('topNav');
+window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50
+        ? 'rgba(12,12,12,.97)' : 'rgba(12,12,12,.82)';
+}, { passive: true });
+</script>
 </body>
 </html>

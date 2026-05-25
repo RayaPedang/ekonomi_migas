@@ -20,28 +20,6 @@ function v(array $p, string $k, string $d = ''): string {
     <title><?= $loaded ? htmlspecialchars($loaded['name']).' – ' : '' ?>Input Parameter – EkoMigas Pro</title>
     <link rel="stylesheet" href="style.css">
 <style>
-/* ═══ NAVBAR ═══════════════════════════════════════════════ */
-.nav{position:fixed;top:0;left:0;right:0;height:62px;
-    background:rgba(12,12,12,.82);border-bottom:1px solid var(--border);
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 2rem;z-index:300;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-    transition:.25s background}
-.nav-brand{display:flex;align-items:center;gap:11px;text-decoration:none}
-.nav-logo{width:34px;height:34px;background:var(--accent);border-radius:8px;
-    display:flex;align-items:center;justify-content:center;
-    font-weight:700;font-size:13px;color:var(--bg);letter-spacing:-.03em}
-.nav-wordmark{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.025em}
-.nav-sub{font-size:10px;color:var(--muted);letter-spacing:.06em}
-.nav-links{display:flex;align-items:center;gap:.15rem}
-.nav-a{padding:6px 13px;border-radius:7px;color:var(--dim);font-size:13.5px;font-weight:500;
-    text-decoration:none;transition:.15s all;letter-spacing:-.01em}
-.nav-a:hover{color:var(--text);background:rgb(255, 255, 255)}
-.nav-a.on{color:var(--text)}
-.btn-nav{padding:8px 17px;border-radius:8px;background:var(--accent);color:var(--bg);
-    font-size:13px;font-weight:600;text-decoration:none;transition:.16s all;
-    display:flex;align-items:center;gap:6px;letter-spacing:-.01em}
-.btn-nav:hover{background:white;color:var(--bg);transform:translateY(-1px)}
-
 /* ── Edit banner ────────────────────── */
 .edit-banner {
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
@@ -131,7 +109,7 @@ function v(array $p, string $k, string $d = ''): string {
         </div>
     </a>
     <div class="nav-links">
-        <a href="home.php"    class="nav-a on">Beranda</a>
+        <a href="home.php"    class="nav-a">Beranda</a>
         <a href="project.php" class="nav-a">Proyek</a>
     </div>
     <a href="index.php" class="btn-nav">
@@ -275,5 +253,13 @@ function v(array $p, string $k, string $d = ''): string {
 </div>
 </div>
 </div>
+
+<script>
+const nav = document.getElementById('topNav');
+window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50
+        ? 'rgba(12,12,12,.97)' : 'rgba(12,12,12,.82)';
+}, { passive: true });
+</script>
 </body>
 </html>

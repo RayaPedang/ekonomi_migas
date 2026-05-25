@@ -15,6 +15,7 @@
     --in-bg:       #111111;
     --in-bdr:      #2A2A2A;
     --accent:      #938A87;
+    --accent-h:    #B0A8A5;
     --accent-dim:  #605E5E;
     --accent-bg:   rgba(147,138,135,.08);
     --accent-bdr:  rgba(147,138,135,.22);
@@ -28,7 +29,7 @@
     --danger:      #9B6E6E;
     --danger-bg:   rgba(155,110,110,.1);
     --danger-bdr:  rgba(155,110,110,.25);
-    --nav-h:       60px;
+    --nav-h:       62px;
     --radius:      12px;
     --radius-sm:   8px;
 }
@@ -68,31 +69,43 @@ a { text-decoration: none; color: inherit; }
 /* ── NAVBAR ─────────────────────────────────────────── */
 .nav {
     position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 300;
-    background: rgba(14,14,14,.96); border-bottom: 1px solid var(--border);
+    background: rgba(12,12,12,.82); border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2.5rem; backdrop-filter: blur(16px);
+    padding: 0 2rem; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    transition: .25s background;
 }
-.nav-left  { display: flex; align-items: center; gap: 2rem; }
+
+/* Brand */
+.nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+.nav-logo  {
+    width: 34px; height: 34px; background: var(--accent); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: var(--bg); letter-spacing: -.03em;
+    flex-shrink: 0;
+}
+.nav-wordmark { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -.025em; }
+.nav-sub      { font-size: 10px; color: var(--muted); letter-spacing: .06em; }
+
+/* Links */
+.nav-links { display: flex; align-items: center; gap: .15rem; }
+.nav-a {
+    padding: 6px 13px; border-radius: 7px; color: var(--dim);
+    font-size: 13.5px; font-weight: 500; text-decoration: none;
+    transition: .15s all; letter-spacing: -.01em;
+}
+.nav-a:hover { color: var(--text); background: rgba(255,255,255,.04); }
+.nav-a.on    { color: var(--text); }
+
+/* Right-side utility area */
 .nav-right { display: flex; align-items: center; gap: .6rem; }
 
-.nav-logo  { display: flex; align-items: center; gap: 9px; }
-.logo-box  {
-    width: 31px; height: 31px; background: var(--accent); border-radius: 7px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Mono', monospace; font-weight: 500; font-size: 12px;
-    color: #0C0C0C; letter-spacing: .5px; flex-shrink: 0;
+/* Primary CTA button */
+.btn-nav {
+    padding: 8px 17px; border-radius: 8px; background: var(--accent); color: var(--bg);
+    font-size: 13px; font-weight: 600; text-decoration: none; transition: .16s all;
+    display: flex; align-items: center; gap: 6px; letter-spacing: -.01em;
 }
-.logo-wordmark        { font-size: 15px; font-weight: 300; color: var(--text); letter-spacing: .1px; }
-.logo-wordmark strong { font-weight: 600; }
-
-.nav-links   { display: flex; gap: 1.5rem; }
-.nav-links a { font-size: 13.5px; color: var(--dim); transition: color .18s; }
-.nav-links a:hover  { color: var(--text); }
-.nav-links a.active { color: var(--text); font-weight: 500; position: relative; }
-.nav-links a.active::after {
-    content: ''; position: absolute; bottom: -6px; left: 0; right: 0;
-    height: 1px; background: var(--accent); border-radius: 2px;
-}
+.btn-nav:hover { background: var(--accent-h); color: var(--bg); transform: translateY(-1px); }
 
 /* ── BUTTONS ────────────────────────────────────────── */
 .btn {
@@ -103,7 +116,7 @@ a { text-decoration: none; color: inherit; }
     text-decoration: none; white-space: nowrap;
 }
 .btn-primary { background: var(--accent); color: #0C0C0C; }
-.btn-primary:hover { background: #A8A09D; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(147,138,135,.25); color: #0C0C0C; }
+.btn-primary:hover { background: var(--accent-h); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(147,138,135,.25); color: #0C0C0C; }
 
 .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text2); }
 .btn-ghost:hover { border-color: var(--accent); color: var(--text); background: var(--accent-bg); }
