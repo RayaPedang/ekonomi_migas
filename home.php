@@ -269,7 +269,6 @@ footer{padding:2.25rem 2rem;border-top:1px solid var(--border);
     <div class="nav-links">
         <a href="home.php"    class="nav-a on">Beranda</a>
         <a href="project.php" class="nav-a">Proyek</a>
-        <a href="index.php"   class="nav-a">Kalkulator</a>
     </div>
     <a href="index.php" class="btn-nav">
         <i class="bi bi-plus-lg"></i> Proyek Baru
