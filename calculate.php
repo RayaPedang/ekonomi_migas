@@ -73,6 +73,16 @@ for ($t = 1; $t <= $jangkaWaktu; $t++) {
 $irr     = hitungIRR($cashflows);
 $payback = hitungPayback($cashflows);
 $pi      = $totalInvestasi > 0 ? ($npv + $totalInvestasi) / $totalInvestasi : 0;
+$chartRows = array_map(function($r) {
+    return [
+        't' => (int)$r['t'],
+        'prod' => (float)$r['prod'],
+        'income' => (float)$r['income'],
+        'opex' => (float)$r['opex'],
+        'ncf_nd' => (float)$r['ncf_nd'],
+        'cum_ncf' => (float)$r['cum_ncf'],
+    ];
+}, $rows);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -81,6 +91,7 @@ $pi      = $totalInvestasi > 0 ? ($npv + $totalInvestasi) / $totalInvestasi : 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil FM<?= $projectName ? ' – '.htmlspecialchars($projectName) : '' ?> – EkoMigas Pro</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <style>
 /* ── Save panel ──────────────────────── */
 .save-panel {
@@ -126,6 +137,18 @@ $pi      = $totalInvestasi > 0 ? ($npv + $totalInvestasi) / $totalInvestasi : 0;
 
 /* ── Metrics grid ────────────────────── */
 .metrics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 1.75rem; }
+.view-toggle { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom: 1rem; }
+.view-btn {
+    border: 1px solid var(--border); border-radius: 999px; background: var(--in-bg); color: var(--text2);
+    padding: 8px 13px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px;
+    cursor: pointer; transition: .18s all;
+}
+.view-btn.active, .view-btn:hover { background: var(--accent-bg); color: var(--accent); border-color: var(--accent-bdr); }
+.chart-grid { display:grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+.chart-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1rem 1.2rem; margin-bottom: 1.5rem; }
+.chart-card h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: .35rem; }
+.chart-card p { font-size: 11.5px; color: var(--muted); margin-bottom: .75rem; }
+.chart-wrap { position: relative; height: 300px; }
 .mcard {
     background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 1.2rem 1.3rem; position: relative; overflow: hidden; transition: .18s transform;
@@ -325,6 +348,12 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
         </div>
     </div>
 
+    <div class="view-toggle" role="tablist" aria-label="Pilihan tampilan hasil">
+        <button type="button" class="view-btn active" data-view="table">Tabel FM</button>
+        <button type="button" class="view-btn" data-view="chart">Grafik Hasil</button>
+    </div>
+
+    <div id="tablePanel">
     <!-- FM Table -->
     <div class="tcard">
         <div class="tcard-hdr"><i class="bi bi-table"></i> Tabel Perhitungan Financial Model (FM)</div>
@@ -385,6 +414,23 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
         </div>
     </div>
 
+    </div>
+
+    <div id="chartPanel" style="display:none;">
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3>NCF & Kumulatif NCF</h3>
+                <p>Tren arus kas tahunan dan akumulasi untuk menilai titik balik investasi.</p>
+                <div class="chart-wrap"><canvas id="ncfChart"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>Produksi, Income & Opex</h3>
+                <p>Perbandingan produksi dengan pendapatan dan biaya operasi tiap tahun.</p>
+                <div class="chart-wrap"><canvas id="prodChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Formula notes -->
     <div class="formula-card">
         <div class="sec-eyebrow">Catatan Formula &amp; Definisi</div>
@@ -409,16 +455,17 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
 </div>
 
 <script>
+const chartRows = <?= json_encode($chartRows, JSON_NUMERIC_CHECK) ?>;
 const nav = document.getElementById('topNav');
 const root = document.documentElement;
-const toggle = document.getElementById('themeToggle');
+const themeToggle = document.getElementById('themeToggle');
 
 function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     localStorage.setItem('ekomigas-theme', theme);
     const isLight = theme === 'light';
-    toggle.querySelector('i').className = isLight ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
-    toggle.querySelector('span').textContent = isLight ? 'Tema Terang' : 'Tema Gelap';
+    themeToggle.querySelector('i').className = isLight ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+    themeToggle.querySelector('span').textContent = isLight ? 'Tema Terang' : 'Tema Gelap';
     updateNav();
 }
 
@@ -432,7 +479,59 @@ function updateNav() {
 const savedTheme = localStorage.getItem('ekomigas-theme') || 'dark';
 applyTheme(savedTheme);
 window.addEventListener('scroll', updateNav, { passive: true });
-toggle?.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+themeToggle?.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+
+const viewButtons = document.querySelectorAll('.view-btn');
+const tablePanel = document.getElementById('tablePanel');
+const chartPanel = document.getElementById('chartPanel');
+viewButtons.forEach(btn => btn.addEventListener('click', () => {
+    const view = btn.dataset.view;
+    viewButtons.forEach(b => b.classList.toggle('active', b === btn));
+    tablePanel.style.display = view === 'table' ? 'block' : 'none';
+    chartPanel.style.display = view === 'chart' ? 'block' : 'none';
+}));
+
+const labels = chartRows.map(r => `Tahun ${r.t}`);
+new window.Chart(document.getElementById('ncfChart'), {
+    type: 'line',
+    data: {
+        labels,
+        datasets: [
+            { label: 'NCF Undiscounted ($M)', data: chartRows.map(r => r.ncf_nd), borderColor: '#5A6882', backgroundColor: 'rgba(90,104,130,0.18)', tension: .35, fill: true },
+            { label: 'Kumulatif NCF ($M)', data: chartRows.map(r => r.cum_ncf), borderColor: '#5A8A7A', backgroundColor: 'rgba(90,138,122,0.12)', tension: .35, fill: true }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2').trim() } } },
+        scales: {
+            x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() }, grid: { color: 'rgba(90,104,130,0.12)' } },
+            y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() }, grid: { color: 'rgba(90,104,130,0.12)' } }
+        }
+    }
+});
+
+new window.Chart(document.getElementById('prodChart'), {
+    type: 'bar',
+    data: {
+        labels,
+        datasets: [
+            { label: 'Produksi (Mbbl)', data: chartRows.map(r => r.prod), backgroundColor: 'rgba(90,104,130,0.35)', borderRadius: 4 },
+            { label: 'Income ($M)', data: chartRows.map(r => r.income), backgroundColor: 'rgba(90,138,122,0.35)', borderRadius: 4 },
+            { label: 'Opex ($M)', data: chartRows.map(r => r.opex), backgroundColor: 'rgba(138,90,106,0.35)', borderRadius: 4 }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2').trim() } } },
+        scales: {
+            x: { stacked: false, ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() }, grid: { color: 'rgba(90,104,130,0.12)' } },
+            y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--muted').trim() }, grid: { color: 'rgba(90,104,130,0.12)' } }
+        }
+    }
+});
 </script>
 </body>
 </html>
