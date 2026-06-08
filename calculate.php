@@ -212,6 +212,10 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
         <a href="project.php" class="nav-a">Proyek</a>
     </div>
     <div class="nav-right">
+        <button type="button" id="themeToggle" class="btn btn-ghost btn-sm theme-toggle" aria-label="Ganti tema">
+            <i class="bi bi-moon-stars-fill"></i>
+            <span>Tema Gelap</span>
+        </button>
         <a href="<?= $projectId ? 'index.php?load='.urlencode($projectId) : 'index.php' ?>" class="btn btn-ghost btn-sm">
             <i class="bi bi-arrow-left"></i> Input Ulang
         </a>
@@ -406,10 +410,29 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
 
 <script>
 const nav = document.getElementById('topNav');
-window.addEventListener('scroll', () => {
+const root = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem('ekomigas-theme', theme);
+    const isLight = theme === 'light';
+    toggle.querySelector('i').className = isLight ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+    toggle.querySelector('span').textContent = isLight ? 'Tema Terang' : 'Tema Gelap';
+    updateNav();
+}
+
+function updateNav() {
+    const isLight = root.getAttribute('data-theme') === 'light';
     nav.style.background = window.scrollY > 50
-        ? 'rgba(5,3,4,.97)' : 'rgba(5,3,4,.88)';
-}, { passive: true });
+        ? (isLight ? 'rgba(255,255,255,.96)' : 'rgba(5,3,4,.97)')
+        : (isLight ? 'rgba(255,255,255,.88)' : 'rgba(5,3,4,.88)');
+}
+
+const savedTheme = localStorage.getItem('ekomigas-theme') || 'dark';
+applyTheme(savedTheme);
+window.addEventListener('scroll', updateNav, { passive: true });
+toggle?.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 </script>
 </body>
 </html>

@@ -14,7 +14,7 @@ $totalProjects  = count($projects);
 <style>
 /* ═══ DOT GRID HERO BG ══════════════════════════════════════ */
 body::before {
-    background-image: radial-gradient(circle, rgba(90,104,130,.06) 1px, transparent 1px) !important;
+    background-image: radial-gradient(circle, var(--grid-dot) 1px, transparent 1px) !important;
     background-size: 26px 26px !important;
 }
 
@@ -301,9 +301,15 @@ footer {
         <a href="home.php"    class="nav-a on">Beranda</a>
         <a href="project.php" class="nav-a">Proyek</a>
     </div>
-    <a href="index.php" class="btn-nav">
-        <i class="bi bi-plus-lg"></i> Proyek Baru
-    </a>
+    <div class="nav-right">
+        <button type="button" id="themeToggle" class="btn btn-ghost btn-sm theme-toggle" aria-label="Ganti tema">
+            <i class="bi bi-moon-stars-fill"></i>
+            <span>Tema Gelap</span>
+        </button>
+        <a href="index.php" class="btn-nav">
+            <i class="bi bi-plus-lg"></i> Proyek Baru
+        </a>
+    </div>
 </nav>
 
 <!-- ═══ HERO ═════════════════════════════════════════════════ -->
@@ -547,10 +553,29 @@ footer {
 
 <script>
 const nav = document.getElementById('topNav');
-window.addEventListener('scroll', () => {
+const root = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem('ekomigas-theme', theme);
+    const isLight = theme === 'light';
+    toggle.querySelector('i').className = isLight ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+    toggle.querySelector('span').textContent = isLight ? 'Tema Terang' : 'Tema Gelap';
+    updateNav();
+}
+
+function updateNav() {
+    const isLight = root.getAttribute('data-theme') === 'light';
     nav.style.background = window.scrollY > 50
-        ? 'rgba(5,3,4,.97)' : 'rgba(5,3,4,.88)';
-}, { passive: true });
+        ? (isLight ? 'rgba(255,255,255,.96)' : 'rgba(5,3,4,.97)')
+        : (isLight ? 'rgba(255,255,255,.88)' : 'rgba(5,3,4,.88)');
+}
+
+const savedTheme = localStorage.getItem('ekomigas-theme') || 'dark';
+applyTheme(savedTheme);
+window.addEventListener('scroll', updateNav, { passive: true });
+toggle?.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 </script>
 </body>
 </html>

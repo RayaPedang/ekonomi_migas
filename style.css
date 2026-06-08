@@ -42,6 +42,34 @@
     --nav-h:       62px;
     --radius:      12px;
     --radius-sm:   8px;
+    --grid-line:   rgba(90,104,130,.04);
+    --grid-dot:    rgba(90,104,130,.06);
+}
+
+:root[data-theme="light"] {
+    --bg:          #edf3fb;
+    --bg2:         #f8fbff;
+    --card:        #ffffff;
+    --border:      #d9e3ef;
+    --in-bg:       #f4f7fb;
+    --in-bdr:      #dce5f1;
+    --accent:      #3f6ea8;
+    --accent-h:    #315784;
+    --accent-dim:  #85a9ce;
+    --accent-bg:   rgba(63,110,168,.12);
+    --accent-bdr:  rgba(63,110,168,.22);
+    --text:        #14253a;
+    --text2:       #45556e;
+    --muted:       #6e7d98;
+    --dim:         #51617c;
+    --success:     #1e876a;
+    --success-bg:  rgba(30,135,106,.12);
+    --success-bdr: rgba(30,135,106,.25);
+    --danger:      #b45770;
+    --danger-bg:   rgba(180,87,112,.12);
+    --danger-bdr:  rgba(180,87,112,.22);
+    --grid-line:   rgba(33,49,73,.06);
+    --grid-dot:    rgba(33,49,73,.08);
 }
 
 /* ── RESET ──────────────────────────────────────────── */
@@ -50,6 +78,7 @@ html { scroll-behavior: smooth; }
 body {
     background: var(--bg); color: var(--text);
     font-family: 'DM Sans', sans-serif;
+    transition: background-color .25s ease, color .25s ease;
     font-size: 14px; font-weight: 400; line-height: 1.65;
     overflow-x: hidden; -webkit-font-smoothing: antialiased;
 }
@@ -57,8 +86,8 @@ body {
 body::before {
     content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background-image:
-        linear-gradient(rgba(90,104,130,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(90,104,130,.04) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 52px 52px;
 }
 a { text-decoration: none; color: inherit; }
@@ -108,6 +137,13 @@ a { text-decoration: none; color: inherit; }
 
 /* Right-side utility area */
 .nav-right { display: flex; align-items: center; gap: .6rem; }
+.theme-toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border); background: rgba(255,255,255,.06);
+    color: var(--text2); box-shadow: none;
+}
+.theme-toggle:hover { color: var(--text); background: var(--accent-bg); border-color: var(--accent-bdr); }
+:root[data-theme="light"] .theme-toggle { background: rgba(255,255,255,.7); }
 
 /* Primary CTA button */
 .btn-nav {
