@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════
    EkoMigas Pro — Shared Design System
+   Tema: Deep Navy Dark (referensi palet Armor Wash – Enduring)
    Gunakan di semua halaman: <link rel="stylesheet" href="style.css">
 ═══════════════════════════════════════════════════════ */
 
@@ -8,27 +9,36 @@
 
 /* ── TOKENS ─────────────────────────────────────────── */
 :root {
-    --bg:          #0C0C0C;
-    --bg2:         #141414;
-    --card:        #1A1A1A;
-    --border:      #272727;
-    --in-bg:       #111111;
-    --in-bdr:      #2A2A2A;
-    --accent:      #938A87;
-    --accent-h:    #B0A8A5;
-    --accent-dim:  #605E5E;
-    --accent-bg:   rgba(147,138,135,.08);
-    --accent-bdr:  rgba(147,138,135,.22);
-    --text:        #EDEAE6;
-    --text2:       #B8B3AE;
-    --muted:       #605E5E;
-    --dim:         #7A7572;
-    --success:     #6E9B7A;
-    --success-bg:  rgba(110,155,122,.1);
-    --success-bdr: rgba(110,155,122,.3);
-    --danger:      #9B6E6E;
-    --danger-bg:   rgba(155,110,110,.1);
-    --danger-bdr:  rgba(155,110,110,.25);
+    /* Backgrounds — dari gelap ke terang mengikuti palet */
+    --bg:          #050304;   /* Armor Wash  — background paling dalam */
+    --bg2:         #0C1015;   /* Ruined Smores — secondary bg / panel */
+    --card:        #13171F;   /* Kuroi Black  — card surface */
+    --border:      #1D2938;   /* Midnight Express — border utama */
+    --in-bg:       #0C1015;   /* Ruined Smores — input background */
+    --in-bdr:      #1D2938;   /* Midnight Express — input border */
+
+    /* Aksen — Very Navy & Enduring sebagai warna interaktif */
+    --accent:      #5A6882;   /* Enduring */
+    --accent-h:    #7A8FAD;   /* Enduring hover — lebih terang */
+    --accent-dim:  #3C475A;   /* Very Navy — aksen redup */
+    --accent-bg:   rgba(90,104,130,.10);
+    --accent-bdr:  rgba(90,104,130,.28);
+
+    /* Teks — putih untuk utama, gradasi biru-abu untuk pendukung */
+    --text:        #FFFFFF;   /* Teks utama — putih bersih */
+    --text2:       #A8B4C8;   /* Teks sekunder — biru-abu muda */
+    --muted:       #5A6882;   /* Teks muted — Enduring */
+    --dim:         #7A8FAD;   /* Teks dim — antara muted & text2 */
+
+    /* Status */
+    --success:     #5A8A7A;
+    --success-bg:  rgba(90,138,122,.10);
+    --success-bdr: rgba(90,138,122,.28);
+    --danger:      #8A5A6A;
+    --danger-bg:   rgba(138,90,106,.10);
+    --danger-bdr:  rgba(138,90,106,.25);
+
+    /* Struktur */
     --nav-h:       62px;
     --radius:      12px;
     --radius-sm:   8px;
@@ -43,12 +53,12 @@ body {
     font-size: 14px; font-weight: 400; line-height: 1.65;
     overflow-x: hidden; -webkit-font-smoothing: antialiased;
 }
-/* Warm grid texture */
+/* Subtle dot/grid texture dengan nuansa navy */
 body::before {
     content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background-image:
-        linear-gradient(rgba(147,138,135,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(147,138,135,.03) 1px, transparent 1px);
+        linear-gradient(rgba(90,104,130,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(90,104,130,.04) 1px, transparent 1px);
     background-size: 52px 52px;
 }
 a { text-decoration: none; color: inherit; }
@@ -62,16 +72,16 @@ a { text-decoration: none; color: inherit; }
 
 .page-hdr              { margin-bottom: 2rem; }
 .page-hdr h1           { font-size: 23px; font-weight: 300; color: var(--text); letter-spacing: -.02em; margin-bottom: .25rem; }
-.page-hdr h1 strong    { font-weight: 600; }
+.page-hdr h1 strong    { font-weight: 600; color: var(--text); }
 .page-hdr p            { font-size: 13px; color: var(--muted); }
 .page-hdr-row          { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
 
 /* ── NAVBAR ─────────────────────────────────────────── */
 .nav {
     position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 300;
-    background: rgba(12,12,12,.82); border-bottom: 1px solid var(--border);
+    background: rgba(5,3,4,.88); border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    padding: 0 2rem; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     transition: .25s background;
 }
 
@@ -80,7 +90,7 @@ a { text-decoration: none; color: inherit; }
 .nav-logo  {
     width: 34px; height: 34px; background: var(--accent); border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 13px; color: var(--bg); letter-spacing: -.03em;
+    font-weight: 700; font-size: 13px; color: #FFFFFF; letter-spacing: -.03em;
     flex-shrink: 0;
 }
 .nav-wordmark { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -.025em; }
@@ -93,7 +103,7 @@ a { text-decoration: none; color: inherit; }
     font-size: 13.5px; font-weight: 500; text-decoration: none;
     transition: .15s all; letter-spacing: -.01em;
 }
-.nav-a:hover { color: var(--text); background: rgba(255,255,255,.04); }
+.nav-a:hover { color: var(--text); background: rgba(90,104,130,.08); }
 .nav-a.on    { color: var(--text); }
 
 /* Right-side utility area */
@@ -101,11 +111,11 @@ a { text-decoration: none; color: inherit; }
 
 /* Primary CTA button */
 .btn-nav {
-    padding: 8px 17px; border-radius: 8px; background: var(--accent); color: var(--bg);
+    padding: 8px 17px; border-radius: 8px; background: var(--accent); color: #FFFFFF;
     font-size: 13px; font-weight: 600; text-decoration: none; transition: .16s all;
     display: flex; align-items: center; gap: 6px; letter-spacing: -.01em;
 }
-.btn-nav:hover { background: var(--accent-h); color: var(--bg); transform: translateY(-1px); }
+.btn-nav:hover { background: var(--accent-h); color: #FFFFFF; transform: translateY(-1px); }
 
 /* ── BUTTONS ────────────────────────────────────────── */
 .btn {
@@ -115,11 +125,11 @@ a { text-decoration: none; color: inherit; }
     font-size: 13.5px; padding: 9px 18px; transition: .18s all;
     text-decoration: none; white-space: nowrap;
 }
-.btn-primary { background: var(--accent); color: #0C0C0C; }
-.btn-primary:hover { background: var(--accent-h); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(147,138,135,.25); color: #0C0C0C; }
+.btn-primary { background: var(--accent); color: #FFFFFF; }
+.btn-primary:hover { background: var(--accent-h); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(90,104,130,.25); color: #FFFFFF; }
 
 .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text2); }
-.btn-ghost:hover { border-color: var(--accent); color: var(--text); background: var(--accent-bg); }
+.btn-ghost:hover { border-color: var(--accent-bdr); color: var(--text); background: var(--accent-bg); }
 
 .btn-success { background: var(--success-bg); border: 1px solid var(--success-bdr); color: var(--success); }
 .btn-success:hover { background: var(--success); color: #fff; border-color: var(--success); }
@@ -128,7 +138,7 @@ a { text-decoration: none; color: inherit; }
 .btn-danger:hover { background: var(--danger); color: #fff; border-color: var(--danger); }
 
 .btn-accent { background: var(--accent-bg); border: 1px solid var(--accent-bdr); color: var(--accent); }
-.btn-accent:hover { background: var(--accent); color: #0C0C0C; }
+.btn-accent:hover { background: var(--accent); color: #FFFFFF; }
 
 .btn-sm { padding: 7px 14px; font-size: 12.5px; }
 .btn-lg { padding: 14px 32px; font-size: 15px; font-weight: 600; border-radius: 9px; }
@@ -145,7 +155,7 @@ input[type=number], input[type=text], select {
     font-family: 'DM Mono', monospace; font-size: 13px;
     transition: .18s all; appearance: none; -webkit-appearance: none;
 }
-input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(147,138,135,.1); background: var(--in-bg); color: var(--text); }
+input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(90,104,130,.12); background: var(--in-bg); color: var(--text); }
 input::placeholder { color: var(--muted); font-family: 'DM Sans', sans-serif; }
 select option { background: var(--card); color: var(--text); }
 .fg   { margin-bottom: 1.1rem; }
@@ -195,7 +205,7 @@ select option { background: var(--card); color: var(--text); }
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--dim); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
 
 /* ── ANIMATIONS ─────────────────────────────────────── */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }

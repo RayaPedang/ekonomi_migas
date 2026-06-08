@@ -84,7 +84,7 @@ function v(array $p, string $k, string $d = ''): string {
     padding: 1rem 1.5rem; cursor: pointer; user-select: none;
     transition: background .18s;
 }
-.ref-toggle:hover { background: rgba(147,138,135,.04); }
+.ref-toggle:hover { background: rgba(90,104,130,.04); }
 .ref-toggle-left { display: flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 500; color: var(--dim); letter-spacing: .3px; }
 .ref-toggle-left i { color: var(--accent); font-size: 14px; }
 .ref-chevron { color: var(--muted); font-size: 13px; transition: transform .25s; }
@@ -258,7 +258,7 @@ function v(array $p, string $k, string $d = ''): string {
 const nav = document.getElementById('topNav');
 window.addEventListener('scroll', () => {
     nav.style.background = window.scrollY > 50
-        ? 'rgba(12,12,12,.97)' : 'rgba(12,12,12,.82)';
+        ? 'rgba(5,3,4,.97)' : 'rgba(5,3,4,.88)';
 }, { passive: true });
 </script>
 </body>

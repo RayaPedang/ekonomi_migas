@@ -52,7 +52,7 @@ $toast    = $_GET['toast'] ?? '';
     background: linear-gradient(90deg, var(--accent) 0%, transparent 60%);
     opacity: 0; transition: opacity .25s;
 }
-.proj-card:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(0,0,0,.4); }
+.proj-card:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(5,3,4,.6); }
 .proj-card:hover::before { opacity: 1; }
 
 .pc-body { padding: 1.25rem 1.4rem; flex: 1; }
@@ -203,7 +203,7 @@ $toast    = $_GET['toast'] ?? '';
 const nav = document.getElementById('topNav');
 window.addEventListener('scroll', () => {
     nav.style.background = window.scrollY > 50
-        ? 'rgba(12,12,12,.97)' : 'rgba(12,12,12,.82)';
+        ? 'rgba(5,3,4,.97)' : 'rgba(5,3,4,.88)';
 }, { passive: true });
 
 setTimeout(() => {

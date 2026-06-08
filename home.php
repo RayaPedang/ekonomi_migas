@@ -14,7 +14,7 @@ $totalProjects  = count($projects);
 <style>
 /* ═══ DOT GRID HERO BG ══════════════════════════════════════ */
 body::before {
-    background-image: radial-gradient(circle, rgba(255,255,255,.045) 1px, transparent 1px) !important;
+    background-image: radial-gradient(circle, rgba(90,104,130,.06) 1px, transparent 1px) !important;
     background-size: 26px 26px !important;
 }
 
@@ -26,11 +26,11 @@ body::before {
 }
 .hero-glow {
     position: absolute; width: 800px; height: 800px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(147,138,135,.045) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(90,104,130,.06) 0%, transparent 65%);
     left: 50%; top: 45%; transform: translate(-50%,-50%); pointer-events: none;
 }
 .hero-wm {
-    position: absolute; font-size: 38vw; font-weight: 800; color: rgba(255,255,255,.011);
+    position: absolute; font-size: 38vw; font-weight: 800; color: rgba(90,104,130,.03);
     right: -4vw; bottom: -8vw; line-height: 1; letter-spacing: -.06em;
     pointer-events: none; user-select: none; font-family: 'DM Sans', sans-serif;
 }
@@ -79,13 +79,13 @@ body::before {
     gap: .9rem; margin-bottom: 2.8rem; flex-wrap: wrap;
 }
 .btn-primary-hero {
-    padding: 14px 28px; border-radius: 10px; background: var(--accent); color: var(--bg);
+    padding: 14px 28px; border-radius: 10px; background: var(--accent); color: #FFFFFF;
     font-size: 15px; font-weight: 600; text-decoration: none;
     display: flex; align-items: center; gap: 8px; transition: .18s all; letter-spacing: -.01em;
 }
 .btn-primary-hero:hover {
-    background: var(--accent-h); color: var(--bg);
-    transform: translateY(-2px); box-shadow: 0 14px 34px rgba(147,138,135,.2);
+    background: var(--accent-h); color: #FFFFFF;
+    transform: translateY(-2px); box-shadow: 0 14px 34px rgba(90,104,130,.25);
 }
 .btn-secondary-hero {
     padding: 14px 28px; border-radius: 10px; background: transparent;
@@ -131,7 +131,7 @@ body::before {
     transition: .18s background; cursor: default;
 }
 .stat:last-child { border-right: none; }
-.stat:hover { background: rgba(255,255,255,.018); }
+.stat:hover { background: rgba(90,104,130,.04); }
 .stat-n {
     font-family: 'DM Mono', monospace; font-size: 40px; font-weight: 500;
     color: var(--text); line-height: 1; margin-bottom: .45rem; letter-spacing: -.03em;
@@ -185,7 +185,7 @@ body::before {
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: -.015em;
 }
 .pc-params { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: .8rem; }
-.pp { background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 7px; padding: 5px 9px; }
+.pp { background: rgba(90,104,130,.05); border: 1px solid var(--border); border-radius: 7px; padding: 5px 9px; }
 .pp-k { font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
 .pp-v { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text2); margin-top: 1px; }
 .pc-date { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
@@ -196,9 +196,9 @@ body::before {
     justify-content: center; gap: 5px; transition: .16s all; border: 1px solid transparent;
 }
 .btn-pc-e { background: var(--accent-bg); border-color: var(--accent-bdr); color: var(--accent); }
-.btn-pc-e:hover { background: var(--accent); color: var(--bg); }
-.btn-pc-c { background: rgba(255,255,255,.04); border-color: var(--border); color: var(--text2); }
-.btn-pc-c:hover { background: rgba(255,255,255,.08); color: var(--text); }
+.btn-pc-e:hover { background: var(--accent); color: #FFFFFF; }
+.btn-pc-c { background: rgba(90,104,130,.06); border-color: var(--border); color: var(--text2); }
+.btn-pc-c:hover { background: rgba(90,104,130,.12); color: var(--text); }
 
 /* New project card (dashed) */
 .pc-new {
@@ -222,11 +222,11 @@ body::before {
 .empty-p { font-size: 13.5px; color: var(--muted); margin-bottom: 1.5rem; }
 .btn-start {
     display: inline-flex; align-items: center; gap: 7px;
-    background: var(--accent); color: var(--bg);
+    background: var(--accent); color: #FFFFFF;
     padding: 11px 24px; border-radius: 9px; font-size: 14px; font-weight: 600;
     text-decoration: none; transition: .16s all;
 }
-.btn-start:hover { background: var(--accent-h); color: var(--bg); transform: translateY(-1px); }
+.btn-start:hover { background: var(--accent-h); color: #FFFFFF; transform: translateY(-1px); }
 
 /* ═══ FEATURES ══════════════════════════════════════════════ */
 .feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.1rem; margin-top: 2.75rem; }
@@ -280,7 +280,7 @@ footer {
 .footer-logo {
     width: 28px; height: 28px; background: var(--accent); border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: var(--bg);
+    font-size: 11px; font-weight: 700; color: #FFFFFF;
 }
 .footer-name { font-size: 14px; font-weight: 600; color: var(--text2); letter-spacing: -.01em; }
 .footer-copy { font-size: 12px; color: var(--muted); }
@@ -549,7 +549,7 @@ footer {
 const nav = document.getElementById('topNav');
 window.addEventListener('scroll', () => {
     nav.style.background = window.scrollY > 50
-        ? 'rgba(12,12,12,.97)' : 'rgba(12,12,12,.82)';
+        ? 'rgba(5,3,4,.97)' : 'rgba(5,3,4,.88)';
 }, { passive: true });
 </script>
 </body>
