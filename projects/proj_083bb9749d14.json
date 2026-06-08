@@ -1,6 +1,6 @@
 {
-    "id": "proj_f51c37bf2259",
-    "name": "Tes 1",
+    "id": "proj_083bb9749d14",
+    "name": "aqel",
     "params": {
         "jangka_waktu": "20",
         "capital": "13000",
@@ -15,8 +15,8 @@
         "tahun_mulai_eskalasi": "4",
         "pajak": "51",
         "discount_rate": "10",
-        "metode_depresiasi": "declining_balance"
+        "metode_depresiasi": "straight_line"
     },
-    "created_at": "2026-05-24 05:52:41",
-    "updated_at": "2026-05-25 08:09:41"
+    "created_at": "2026-05-25 08:20:08",
+    "updated_at": "2026-05-25 08:20:08"
 }
