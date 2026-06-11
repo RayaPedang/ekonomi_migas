@@ -10,6 +10,9 @@ $capital            = (float) $_POST['capital'];
 $nonCapital         = (float) $_POST['non_capital'];
 $totalInvestasi     = $capital + $nonCapital;
 $prodAwal           = (float) $_POST['prod_thn_1'];
+$prodThn2           = (float) ($_POST['prod_thn_2'] ?? 0);
+$prodThn3           = (float) ($_POST['prod_thn_3'] ?? 0);
+$prodThn4           = (float) ($_POST['prod_thn_4'] ?? 0);
 $lajuKenaikan       = (float) $_POST['laju_kenaikan']       / 100;
 $tahunPuncak        = max(1, (int)   $_POST['tahun_puncak']);
 $declineRate        = (float) $_POST['decline']             / 100;
@@ -48,15 +51,30 @@ function hitungPayback(array $cf): ?float {
 }
 
 /* ── Calculate ───────────────────────────────────── */
-$prodPeak  = $prodAwal * pow(1 + $lajuKenaikan, max(0, $tahunPuncak - 1));
 $rows = []; $cashflows = [-$totalInvestasi];
 $npv=$totalNCF_ND=$totalNCF_D=0;
 $npv = -$totalInvestasi;
 $cumNCF = -$totalInvestasi; $nilaiBuku = $totalInvestasi;
 $sumYears = ($jangkaWaktu * ($jangkaWaktu + 1)) / 2;
 
+$manualProd = [
+    1 => $prodAwal,
+    2 => $prodThn2 > 0 ? $prodThn2 : null,
+    3 => $prodThn3 > 0 ? $prodThn3 : null,
+    4 => $prodThn4 > 0 ? $prodThn4 : null,
+];
+$effectivePeak = $prodThn4 > 0 ? 4 : $tahunPuncak;
+$prodPeak = $prodAwal * pow(1 + $lajuKenaikan, max(0, $effectivePeak - 1));
+
 for ($t = 1; $t <= $jangkaWaktu; $t++) {
-    $prod   = ($t<=$tahunPuncak) ? $prodAwal*pow(1+$lajuKenaikan,$t-1) : $prodPeak*pow(1-$declineRate,$t-$tahunPuncak);
+    if ($t <= 4 && $manualProd[$t] !== null) {
+        $prod = $manualProd[$t];
+    } elseif ($t <= $effectivePeak) {
+        $prod = $prodAwal * pow(1 + $lajuKenaikan, $t - 1);
+    } else {
+        $baseDecline = $manualProd[4] ?? $prodPeak;
+        $prod = $baseDecline * pow(1 - $declineRate, $t - $effectivePeak);
+    }
     $income = $prod * $hargaMinyak;
     $opex   = ($t < $tahunMulaiEskalasi) ? $opexBase : $opexBase*pow(1+$opexEskalasi,$t-$tahunMulaiEskalasi+1);
     switch ($metode) {
@@ -64,8 +82,10 @@ for ($t = 1; $t <= $jangkaWaktu; $t++) {
         case 'sum_years_digits':  $di=(($jangkaWaktu-$t+1)/$sumYears)*$totalInvestasi; break;
         default: $di = $totalInvestasi / $jangkaWaktu;
     }
-    $taxable=$income-$opex-$di; $tax=($taxable>0)?$taxable*$pajakRate:0;
-    $ncf_nd=$taxable-$tax; $ncf_d=$ncf_nd/pow(1+$discountRate,$t);
+    $taxable = $income - $opex - $di;
+    $tax = ($taxable > 0) ? $taxable * $pajakRate : 0;
+    $ncf_nd = $income - $opex - $tax;   // cash flow after tax (depreciation sebagai tax shield, bukan pengurang cash flow)
+    $ncf_d = $ncf_nd / pow(1 + $discountRate, $t);
     $cumNCF+=$ncf_nd; $totalNCF_ND+=$ncf_nd; $totalNCF_D+=$ncf_d; $npv+=$ncf_d; $cashflows[]=$ncf_nd;
     $rows[] = ['t'=>$t,'prod'=>$prod,'income'=>$income,'opex'=>$opex,'di'=>$di,
                'taxable'=>$taxable,'tax'=>$tax,'ncf_nd'=>$ncf_nd,'ncf_d'=>$ncf_d,'cum_ncf'=>$cumNCF];
@@ -189,21 +209,21 @@ thead th {
     border-bottom: 1px solid var(--border); white-space: nowrap;
 }
 thead tr:nth-child(2) th { background: var(--bg2); font-size: 10px; color: var(--muted); }
-.th-inv { border-left: 1px solid rgba(90,104,130,.18); border-right: 1px solid rgba(90,104,130,.18); color: var(--accent) !important; background: rgba(90,104,130,.04) !important; }
+.th-inv { border-left: 1px solid rgba(90,104,130,.18); border-right: 1px solid rgba(90,104,130,.18); color: var(--accent) !important; background: rgba(90,104,130,.08) !important; }
 
-tbody tr { border-bottom: 1px solid rgba(29,41,56,.7); transition: .12s background; }
-tbody tr:hover { background: rgba(90,104,130,.03); }
-tbody tr:nth-child(even) { background: rgba(5,3,4,.5); }
-tbody tr:nth-child(even):hover { background: rgba(90,104,130,.035); }
+tbody tr { border-bottom: 1px solid rgba(90,104,130,.18); transition: .12s background; }
+tbody tr:hover { background: rgba(90,104,130,.06); }
+tbody tr:nth-child(even) { background: rgba(90,104,130,.04); }
+tbody tr:nth-child(even):hover { background: rgba(90,104,130,.08); }
 
 tbody td { padding: 8px 10px; text-align: right; font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--text2); white-space: nowrap; }
-tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent); background: rgba(5,3,4,.4); }
+tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent); background: rgba(90,104,130,.07); }
 
 .td-inv   { border-left:  1px solid rgba(90,104,130,.1); }
 .td-inv-r { border-right: 1px solid rgba(90,104,130,.1); }
 
-.row-zero td { color: var(--accent) !important; background: rgba(90,104,130,.04) !important; }
-.row-total td { font-weight: 500; color: var(--accent) !important; background: rgba(90,104,130,.06) !important; border-top: 1px solid rgba(90,104,130,.2) !important; font-size: 12px; }
+.row-zero td { color: var(--text) !important; background: rgba(90,104,130,.06) !important; }
+.row-total td { font-weight: 500; color: var(--text) !important; background: rgba(90,104,130,.08) !important; border-top: 1px solid rgba(90,104,130,.2) !important; font-size: 12px; }
 
 .tdneg { color: var(--danger)  !important; }
 .tdpos { color: var(--success) !important; }
@@ -417,15 +437,19 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
     </div>
 
     <div id="chartPanel" style="display:none;">
+        <div class="chart-card" style="margin-bottom: .9rem;">
+            <h3>Penjelasan Grafik</h3>
+            <p>Grafik ini membantu melihat tren ekonomi proyek: apakah arus kas bersih tumbuh, kapan investasi kembali, dan bagaimana produksi serta biaya operasi berubah sepanjang tahun.</p>
+        </div>
         <div class="chart-grid">
             <div class="chart-card">
                 <h3>NCF & Kumulatif NCF</h3>
-                <p>Tren arus kas tahunan dan akumulasi untuk menilai titik balik investasi.</p>
+                <p>Grafik ini menunjukkan NCF tahunan dan kumulatif. Titik saat garis kumulatif menembus nol menandakan payback period.</p>
                 <div class="chart-wrap"><canvas id="ncfChart"></canvas></div>
             </div>
             <div class="chart-card">
                 <h3>Produksi, Income & Opex</h3>
-                <p>Perbandingan produksi dengan pendapatan dan biaya operasi tiap tahun.</p>
+                <p>Grafik ini membandingkan produksi, pendapatan, dan biaya operasi tiap tahun agar pola keuntungan dan biaya proyek lebih mudah dibaca.</p>
                 <div class="chart-wrap"><canvas id="prodChart"></canvas></div>
             </div>
         </div>
@@ -437,7 +461,7 @@ tbody td:first-child { text-align: center; font-weight: 500; color: var(--accent
         <div class="formula-grid">
             <div class="fg-col">
                 <h4>Alur Perhitungan</h4>
-                <p><span>Income</span> = Produksi × Harga Minyak<br><span>Taxable Income</span> = Income − Opex − Di<br><span>Tax</span> = Taxable × <?= fmt($pajakRate*100,1) ?>% (jika &gt; 0)<br><span>NCF Undiscounted</span> = Taxable − Tax</p>
+                <p><span>Income</span> = Produksi × Harga Minyak<br><span>Taxable Income</span> = Income − Opex − Di<br><span>Tax</span> = Taxable × <?= fmt($pajakRate*100,1) ?>% (jika &gt; 0)<br><span>NCF Undiscounted</span> = Income − Opex − Tax</p>
             </div>
             <div class="fg-col">
                 <h4>Metrik Investasi</h4>

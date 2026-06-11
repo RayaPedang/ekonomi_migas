@@ -2,11 +2,14 @@
     "id": "proj_09360e72670f",
     "name": "tes",
     "params": {
-        "jangka_waktu": "20",
+        "jangka_waktu": "10",
         "capital": "13000",
         "non_capital": "8000",
         "prod_thn_1": "175",
-        "laju_kenaikan": "11.3",
+        "prod_thn_2": "201",
+        "prod_thn_3": "217",
+        "prod_thn_4": "198",
+        "laju_kenaikan": "2.5",
         "tahun_puncak": "3",
         "decline": "3",
         "harga_minyak": "32",
@@ -18,5 +21,5 @@
         "metode_depresiasi": "straight_line"
     },
     "created_at": "2026-05-25 08:20:38",
-    "updated_at": "2026-05-25 08:20:38"
+    "updated_at": "2026-06-08 07:10:42"
 }

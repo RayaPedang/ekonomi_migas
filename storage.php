@@ -94,7 +94,7 @@ function deleteProject(string $id): bool
 function fmParamKeys(): array
 {
     return [
-        'jangka_waktu', 'capital', 'non_capital', 'prod_thn_1',
+        'jangka_waktu', 'capital', 'non_capital', 'prod_thn_1', 'prod_thn_2', 'prod_thn_3', 'prod_thn_4',
         'laju_kenaikan', 'tahun_puncak', 'decline', 'harga_minyak',
         'opex_base', 'opex_eskalasi', 'tahun_mulai_eskalasi',
         'pajak', 'discount_rate', 'metode_depresiasi',

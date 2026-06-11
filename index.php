@@ -184,9 +184,16 @@ function v(array $p, string $k, string $d = ''): string {
             </div>
             <div class="g4">
                 <div class="fg"><label>Produksi Tahun ke-1 (Mbbl/thn)</label><input type="number" name="prod_thn_1" value="<?= v($p,'prod_thn_1','175') ?>" step="0.01" required></div>
+                <div class="fg"><label>Produksi Tahun ke-2 (Mbbl/thn)</label><input type="number" name="prod_thn_2" value="<?= v($p,'prod_thn_2','190') ?>" step="0.01"></div>
+                <div class="fg"><label>Produksi Tahun ke-3 (Mbbl/thn)</label><input type="number" name="prod_thn_3" value="<?= v($p,'prod_thn_3','205') ?>" step="0.01"></div>
+                <div class="fg"><label>Produksi Tahun ke-4 (Mbbl/thn)</label><input type="number" name="prod_thn_4" value="<?= v($p,'prod_thn_4','220') ?>" step="0.01"></div>
+            </div>
+            <p class="hint">Tahun 1–4 bisa Anda sesuaikan manual; tahun 5 ke atas akan mengikuti pola decline otomatis.</p>
+            <div class="g4" style="margin-top: .8rem;">
                 <div class="fg"><label>Laju Kenaikan (%/thn)</label><input type="number" name="laju_kenaikan" value="<?= v($p,'laju_kenaikan','11.3') ?>" step="0.01" min="0"><p class="hint">Fase build-up</p></div>
                 <div class="fg"><label>Tahun Puncak Produksi</label><input type="number" name="tahun_puncak" value="<?= v($p,'tahun_puncak','3') ?>" min="1" required><p class="hint">Decline mulai thn berikutnya</p></div>
                 <div class="fg"><label>Decline Rate (%/thn)</label><input type="number" name="decline" value="<?= v($p,'decline','3') ?>" step="0.01" min="0" required></div>
+                <div class="fg"></div>
             </div>
         </div>
 

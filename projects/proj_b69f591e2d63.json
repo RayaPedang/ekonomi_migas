@@ -1,0 +1,25 @@
+{
+    "id": "proj_b69f591e2d63",
+    "name": "contoh",
+    "params": {
+        "jangka_waktu": "20",
+        "capital": "20000",
+        "non_capital": "5000",
+        "prod_thn_1": "175",
+        "prod_thn_2": "190",
+        "prod_thn_3": "205",
+        "prod_thn_4": "220",
+        "laju_kenaikan": "5",
+        "tahun_puncak": "3",
+        "decline": "3",
+        "harga_minyak": "65",
+        "opex_base": "180",
+        "opex_eskalasi": "2.5",
+        "tahun_mulai_eskalasi": "4",
+        "pajak": "51",
+        "discount_rate": "10",
+        "metode_depresiasi": "straight_line"
+    },
+    "created_at": "2026-06-08 07:23:20",
+    "updated_at": "2026-06-08 07:23:20"
+}
